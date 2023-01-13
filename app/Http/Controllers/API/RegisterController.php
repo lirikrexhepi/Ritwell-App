@@ -47,6 +47,8 @@
             */
             public function login(Request $request)
             {
+
+                //(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password]))
                 if(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])){ 
                     /*$user = Auth::guard('api')->user();
                     $success['token'] = $user->createToken('MyApp')->accessToken; */
