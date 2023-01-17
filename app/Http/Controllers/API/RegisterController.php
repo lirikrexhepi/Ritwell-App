@@ -45,22 +45,24 @@
             *
             * @return \Illuminate\Http\Response
             */
-            public function login(Request $request)
+            public function login(Request $request) 
             {
 
                 //(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password]))
                 if(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])){ 
-                    /*$user = Auth::guard('api')->user();
-                    $success['token'] = $user->createToken('MyApp')->accessToken; */
                     $user = Auth::guard('api')->user();
-                    $success['token'] =  $user->createToken('MyApp')->accessToken; 
-                    $success['name'] =  $user->name;
-                    $success['role'] =  $user->role;
- 
-                    return $this->sendResponse($success, 'User login successfully.');
-                } 
-                else{ 
+                    if($user){
+                        $success['token'] =  $user->createToken('MyApp')->accessToken; 
+                        $success['name'] =  $user->name;
+                        $success['role'] =  $user->role;
+                        return $this->sendResponse($success, 'User login successfully.');
+                    }
+                    else{
+                        return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+                    }
+                }
+                else{
                     return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-                } 
+                }
             }
         }

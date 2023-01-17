@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SpecialEvents extends Model
+class Nutrition extends Model
 {
     use HasFactory;
-    protected $table='special_events';
-             /**
+
+    protected $table='nutrition_plan';
+            /**
              * The attributes that are mass assignable.
              *
              * @var array
              */
             protected $fillable = [
-                'title', 'description','calories','proteins', 'carbohydrates','timeOfDay',
+                'title', 'description', 'calories', 'proteins', 'carbohydrates', 'timeOfDay'
             ];
 }

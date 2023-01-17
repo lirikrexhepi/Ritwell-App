@@ -12,6 +12,35 @@
 
 namespace App\Models{
 /**
+ * App\Models\Nutrition
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $title
+ * @property string $description
+ * @property string $calories
+ * @property string $proteins
+ * @property string $carbohydrates
+ * @property string $timeOfDay
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereCalories($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereCarbohydrates($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereProteins($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereTimeOfDay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereUpdatedAt($value)
+ */
+	class Nutrition extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Products
  *
  * @property int $id
