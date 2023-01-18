@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Nutrition as NutritionResource;
 use App\Models\Nutrition;
 use App\Enums\timeOfDay;
-use Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log as FacadesLog;
 use Log;
 
@@ -20,10 +20,8 @@ class NutritionController extends BaseController
         * @param  \Illuminate\Http\Request  $request
         * @return \Illuminate\Http\Response
         */
-            public function store(Request  $request)
-            {
-            
-
+        public function store(Request $request)
+        {
             $nutrition = new Nutrition();
             $nutrition['title'] = $request->title;
             $nutrition['description'] = $request->description;
@@ -31,9 +29,14 @@ class NutritionController extends BaseController
             $nutrition['proteins'] = $request->proteins;
             $nutrition['carbohydrates'] = $request->carbohydrates;
         
-
+            // Add image handling code here
+            $image = $request->file('image');
+            $path = Storage::putFile('public/images', $image);
+            $url = Storage::url($path);
+            $nutrition['image'] = $url; // add the path to the database
+        
             $timeOfDay = $request->timeOfDay;
-
+        
             if($timeOfDay === timeOfDay::OptionOne){
                 $nutrition->timeOfDay = "Breakfast";
             }
@@ -43,11 +46,12 @@ class NutritionController extends BaseController
             elseif($timeOfDay === timeOfDay::OptionThree){
                 $nutrition->timeOfDay = "Dinner";
             }
-
-
-
+        
             $nutrition->save();
-            }
+        
+            return Response::json(['message' => 'Image uploaded and nutrition info saved successfully.']);
+        }
+        
 
 
             /**

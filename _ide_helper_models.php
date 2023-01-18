@@ -23,6 +23,7 @@ namespace App\Models{
  * @property string $proteins
  * @property string $carbohydrates
  * @property string $timeOfDay
+ * @property string $image
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition query()
@@ -31,6 +32,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereProteins($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereTimeOfDay($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Nutrition whereTitle($value)
@@ -46,6 +48,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $details
+ * @property string $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Products newModelQuery()
@@ -54,6 +57,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Products whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Products whereDetails($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Products whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Products whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Products whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Products whereUpdatedAt($value)
  */
@@ -68,6 +72,7 @@ namespace App\Models{
  * @property string $title
  * @property string $recipe
  * @property string $time
+ * @property string $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe newModelQuery()
@@ -75,6 +80,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe query()
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereRecipe($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Recipe whereTitle($value)

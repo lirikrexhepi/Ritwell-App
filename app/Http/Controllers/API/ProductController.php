@@ -6,6 +6,8 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
 use App\Http\Resources\Product as ProductResource;
 use App\Models\Products;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends BaseController
 {
@@ -28,22 +30,26 @@ class ProductController extends BaseController
     * @return \Illuminate\Http\Response
     */
     public function store(Request $request)
-    {
-        $input = $request->all();
+{
+    $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'details' => 'required'
-        ]);
+    $validator = Validator::make($input, [
+        'name' => 'required',
+        'details' => 'required',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
+    if($validator->fails()){
+        return $this->sendError('Validation Error.', $validator->errors());
+    }
 
-        $product = Products::create($input);
+    $image = $request->file('image');
+    $path = Storage::putFile('public/images', $image);
+    $input['image'] = Storage::url($path);
+    $product = Products::create($input);
 
-        return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
-    } 
+    return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
+}
 
     /**
     * Display the specified resource.
