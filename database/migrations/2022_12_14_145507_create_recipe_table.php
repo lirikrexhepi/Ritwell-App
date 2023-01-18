@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('recipe');
             $table->string('time');
+            $table->string('image' , 255);
             $table->timestamps();
         });
     }

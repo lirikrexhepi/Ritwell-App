@@ -79,6 +79,7 @@ class NutritionController extends BaseController
                 elseif($option === timeOfDay::OptionThree){
                     $nutrition->timeOfDay = "Dinner";
                 }
+                
 
                 $nutrition->save();
 

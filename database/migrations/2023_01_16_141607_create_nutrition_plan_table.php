@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('proteins');
             $table->string('carbohydrates');
             $table->string('timeOfDay');
+            $table->string('image' , 255);
+            
         });
     }
 
