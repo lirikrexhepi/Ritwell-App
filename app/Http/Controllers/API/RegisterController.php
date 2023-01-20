@@ -48,21 +48,16 @@
             public function login(Request $request) 
             {
 
-                //(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password]))
-                if(Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])){ 
-                    $user = Auth::guard('api')->user();
-                    if($user){
-                        $success['token'] =  $user->createToken('MyApp')->accessToken; 
-                        $success['name'] =  $user->name;
-                        $success['role'] =  $user->role;
-                        return $this->sendResponse($success, 'User login successfully.');
-                    }
-                    else{
-                        return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-                    }
-                }
-                else{
-                    return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-                }
+                $creds = $request->validate([
+                    'email' => 'required|email|string|exists:users,email', 
+                    'password' => ['required']
+                ]);
+                if (!Auth::attempt($creds)) { 
+                    return response([ 'message' => 'Provided email or password is incorrect' ], 422); 
+                } 
+                /** @var \App\Models\User $user */
+                $user = Auth::user(); 
+                $token = $user->createToken('main')->plainTextToken; 
+                return response(compact('user', 'token'));
             }
         }

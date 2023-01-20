@@ -27,11 +27,12 @@ class AdminMiddleware
                     
                 }   
                 else{
-                    return redirect('/login')->with('message', 'Access Denied');
+                    return response(['msg'=>'You are not authorized for this route!']);
                 }
             }
             else{
-                return redirect('/login')->with('message', 'Log In to gain access');
+                return response(['msg'=>'Log In to gain access!']);
+
             }
 
 

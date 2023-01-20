@@ -45,9 +45,9 @@ Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $
 
 //Route::middleware(['auth', 'isAdmin'])->get('/admin', function () {
     Route::post('/addProducts', [ProductController::class, 'store']);
-    Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']);  
+    Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']);//->middleware('isAdmin')  
     
-    Route::post('/addRecipe', [RecipeController::class, 'store']);
+    Route::post('/addRecipe', [RecipeController::class, 'store'])->middleware('isAdmin');
     Route::put('/updateRecipe/{id}', [RecipeController::class, 'update'], function (Request $id) {
         return 'Recipe '.$id;
     });
