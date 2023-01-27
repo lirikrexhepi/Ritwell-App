@@ -20,20 +20,29 @@ class SpecialEventsController extends BaseController
         * @param  \Illuminate\Http\Request  $request
         * @return \Illuminate\Http\Response
         */
+
+        public function index()
+        {
+            $events = SpecialEvents::all();
+
+            return $this->sendResponse(Events::collection($events), 'SpecialEvents retrieved successfully.');
+        }
         
             public function store(Request  $request)
             {
                 if(Auth::user()->role=="1"){
-                    SpecialEvents::create(['title'=>$request->title,'description'=>$request->description,'eventType'=>$request->eventType]);
-                
+                    SpecialEvents::create([
+                        'title'=>$request->title,
+                        'description'=>$request->description,
+                        'eventType'=>$request->eventType
+                    ]);
 
-          //  $events = new SpecialEvents();
-           // $events['title'] = $request->title;
-           // $events['description'] = $request->description;
-
-          //  $eventType = $request->eventType;
-
-        }
+                    return response()->json(['message' => 'Special Event saved successfully.']);
+            }
+            else{
+                    return response()->json(['message' => 'Unauthorized']);
+            }
+            
             }
 
 
@@ -49,25 +58,30 @@ class SpecialEventsController extends BaseController
 
     public function update(Request $request, $id)
 {
-    $events = SpecialEvents::find($id);
-    $events->title = $request->input('title');
-    $events->description = $request->input('description');
-    $option = $request->input('eventType');
+    if(Auth::user()->role=="1"){
+            $events = SpecialEvents::find($id);
+            $events->title = $request->input('title');
+            $events->description = $request->input('description');
+            $option = $request->input('eventType');
 
-    if($option === eventType::Value1){
-        $events->eventType = "Holidays";
+            if($option === eventType::Value1){
+                $events->eventType = "Holidays";
+            }
+            elseif($option === eventType::Value2){
+                $events->eventType = "Exchange";
+            }
+            elseif($option === eventType::Value3){
+                $events->eventType = "Absent";
+            }
+
+
+            $events->save();
+
+            return response()->json(['message' => 'Updated Event successfully']);
+}
+    else{
+        return response()->json(['message' => 'Unauthorized']);
     }
-    elseif($option === eventType::Value2){
-        $events->eventType = "Exchange";
-    }
-    elseif($option === eventType::Value3){
-        $events->eventType = "Absent";
-    }
-
-
-    $events->save();
-
-    return response()->json($events, 200);
 }
 
 

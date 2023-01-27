@@ -25,32 +25,15 @@ class RecipeController extends BaseController
             {
             
                 if(Auth::user()->role=="1"){
-                   // $path = Storage::putFile('public/images', $image);
-                     //$url = Storage::url($path);
+
                     $path = $request->file('image')->store('images');
                     Recipe::create(['title'=>$request->title,'recipe'=>$request->recipe,'time'=>$request->time,'image'=>$path]);
-                    //$image = $request->file('image');
-                     
-                    //$recipe= Recipe::create(['image' => $request->image]);
-                    // Recipe::create
-                    
-                    //$recipe = new Recipe();
-                    //$recipe['title'] = $request->title;
-                   // $recipe['recipe'] = $request->recipe;
-                    //$recipe['time'] = $request->time;
-        
-                     // Add image handling code here
-                     
-                   //  $recipe['image'] = $url; // add the path to the database
-        
-                   // $recipe->save();
+
         
                     return response()->json(['message' => 'Image uploaded and recipe info saved successfully.']);
                 }else{
                     return response()->json(['message' => 'Unauthenticated user']);
-
                 }
-           
             }
 
 
@@ -87,7 +70,7 @@ class RecipeController extends BaseController
                 return response()->json($recipe, 200);
                 }
                 else{
-                    return response()->json(['message' => 'Unauthenticated user']);
+                    return response()->json(['message' => 'Recipe updated successfully']);
                 }
             }
 

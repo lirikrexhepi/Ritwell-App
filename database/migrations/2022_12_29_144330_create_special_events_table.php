@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('eventType');
             $table->enum('eventType', ['Holidays', 'Exchange', 'Absent']);
             $table->timestamps();
                 

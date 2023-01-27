@@ -22,34 +22,25 @@ class NutritionController extends BaseController
         */
         public function store(Request $request)
         {
-            $nutrition = new Nutrition();
-            $nutrition['title'] = $request->title;
-            $nutrition['description'] = $request->description;
-            $nutrition['calories'] = $request->calories;
-            $nutrition['proteins'] = $request->proteins;
-            $nutrition['carbohydrates'] = $request->carbohydrates;
-        
-            // Add image handling code here
-            $image = $request->file('image');
-            $path = Storage::putFile('public/images', $image);
-            $url = Storage::url($path);
-            $nutrition['image'] = $url; // add the path to the database
-        
-            $timeOfDay = $request->timeOfDay;
-        
-            if($timeOfDay === timeOfDay::OptionOne){
-                $nutrition->timeOfDay = "Breakfast";
+
+            if(Auth::user()->role=="1"){
+
+                $path = $request->file('image')->store('images');
+                Nutrition::create([
+                                    'title'=>$request->title,
+                                    'description'=>$request->description,
+                                    'calories'=>$request->calories,
+                                    'proteins'=>$request->proteins,
+                                    'carbohydrates'=>$request->carbohydrates,
+                                    'image'=>$path
+                                ]);
+
+    
+                return response()->json(['message' => 'Image uploaded and nutrition info saved successfully.']);
+            }else{
+                return response()->json(['message' => 'Unauthenticated user']);
             }
-            elseif($timeOfDay === timeOfDay::OptionTwo){
-                $nutrition->timeOfDay = "Lunch";
-            }
-            elseif($timeOfDay === timeOfDay::OptionThree){
-                $nutrition->timeOfDay = "Dinner";
-            }
-        
-            $nutrition->save();
-        
-            return Response::json(['message' => 'Image uploaded and nutrition info saved successfully.']);
+
         }
         
 
@@ -64,30 +55,35 @@ class NutritionController extends BaseController
 
                 public function update(Request $request, $id)
             {
-                $nutrition = Nutrition::find($id);
-                $nutrition->title = $request->input('title');
-                $nutrition->description = $request->input('description');
-                $nutrition->calories = $request->input('calories');
-                $nutrition->proteins = $request->input('proteins');
-                $nutrition->carbohydrates = $request->input('carbohydrates');
+                if(Auth::user()->role=="1"){
+                    $nutrition = Nutrition::find($id);
+                    $nutrition->title = $request->input('title');
+                    $nutrition->description = $request->input('description');
+                    $nutrition->calories = $request->input('calories');
+                    $nutrition->proteins = $request->input('proteins');
+                    $nutrition->carbohydrates = $request->input('carbohydrates');
 
-                $option = $request->input('timeOfDay');
+                    $option = $request->input('timeOfDay');
 
 
-                if($option === timeOfDay::OptionOne){
-                    $nutrition->timeOfDay = "Breakfast";
-                }
-                elseif($option === timeOfDay::OptionTwo){
-                    $nutrition->timeOfDay = "Lunch";
-                }
-                elseif($option === timeOfDay::OptionThree){
-                    $nutrition->timeOfDay = "Dinner";
-                }
-                
+                    if($option === timeOfDay::OptionOne){
+                        $nutrition->timeOfDay = "Breakfast";
+                    }
+                    elseif($option === timeOfDay::OptionTwo){
+                        $nutrition->timeOfDay = "Lunch";
+                    }
+                    elseif($option === timeOfDay::OptionThree){
+                        $nutrition->timeOfDay = "Dinner";
+                    }
+                    
 
-                $nutrition->save();
+                    $nutrition->save();
 
-                return response()->json($nutrition, 200);
+                    return response()->json(['message' => 'Updated Nutrition successfully']);
+}
+                    else{
+                        return response()->json(['message' => 'Unauthorized']);
+                    }
             }
 
 

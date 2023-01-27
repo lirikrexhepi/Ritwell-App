@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Product as ProductResource;
 use App\Models\Products;
 use Illuminate\Support\Facades\Storage;
@@ -31,25 +32,20 @@ class ProductController extends BaseController
     */
     public function store(Request $request)
 {
-    $input = $request->all();
+            $path = $request->file('image')->store('images');
+            if(Auth::user()->role=="1"){
+                Products::create([
+                    'name'=>$request->name,
+                    'details'=>$request->details,
+                    'image'=>$path
+                ]);
 
-    $validator = Validator::make($input, [
-        'name' => 'required',
-        'details' => 'required',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-    ]);
-
-    if($validator->fails()){
-        return $this->sendError('Validation Error.', $validator->errors());
+                return response()->json(['message' => 'Product added successfully.']);
+        }
+        else{
+                return response()->json(['message' => 'Unauthorized']);
+        }
     }
-
-    $image = $request->file('image');
-    $path = Storage::putFile('public/images', $image);
-    $input['image'] = Storage::url($path);
-    $product = Products::create($input);
-
-    return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
-}
 
     /**
     * Display the specified resource.
@@ -79,6 +75,7 @@ class ProductController extends BaseController
 
     public function update(Request $request, Products $product)
     {
+        if(Auth::user()->role=="1"){
         $input = $request->all();
 
         $validator = Validator::make($input, [
@@ -95,6 +92,11 @@ class ProductController extends BaseController
         $product->save();
 
         return $this->sendResponse(new ProductResource($product), 'Product updated successfully.');
+    }
+                    else{
+                        return response()->json(['message' => 'Unauthorized']);
+                    }
+
     }
 
     /**
