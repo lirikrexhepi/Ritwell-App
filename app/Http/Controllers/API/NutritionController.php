@@ -96,7 +96,7 @@ class NutritionController extends BaseController
             {
             $nutrition = Nutrition::findOrFail($id);
             
-            if ($nutrition->isEmpty()) {
+            if ($nutrition==null) {
             return $this->sendError('Nutrition not found.');
             }
 

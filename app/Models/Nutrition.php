@@ -16,6 +16,6 @@ class Nutrition extends Model
              * @var array
              */
             protected $fillable = [
-                'title', 'description', 'calories', 'proteins', 'carbohydrates', 'timeOfDay'
+                'title', 'description', 'calories', 'proteins', 'carbohydrates', 'timeOfDay', 'image'
             ];
 }

@@ -24,21 +24,33 @@ class RecipeController extends BaseController
             public function store(Request  $request)
             {
             
+                if(Auth::user()->role=="1"){
+                   // $path = Storage::putFile('public/images', $image);
+                     //$url = Storage::url($path);
+                     $path = $request->file('image')->store('images');
+                    Recipe::create(['title'=>$request->title,'recipe'=>$request->recipe,'time'=>$request->time,'image'=>$path]);
+                    //$image = $request->file('image');
+                     
+                    //$recipe= Recipe::create(['image' => $request->image]);
+                    // Recipe::create
+                    
+                    //$recipe = new Recipe();
+                    //$recipe['title'] = $request->title;
+                   // $recipe['recipe'] = $request->recipe;
+                    //$recipe['time'] = $request->time;
+        
+                     // Add image handling code here
+                     
+                   //  $recipe['image'] = $url; // add the path to the database
+        
+                   // $recipe->save();
+        
+                    return response()->json(['message' => 'Image uploaded and recipe info saved successfully.']);
+                }else{
+                    return response()->json(['message' => 'Unauthenticated user']);
 
-            $recipe = new Recipe();
-            $recipe['title'] = $request->title;
-            $recipe['recipe'] = $request->recipe;
-            $recipe['time'] = $request->time;
-
-             // Add image handling code here
-             $image = $request->file('image');
-             $path = Storage::putFile('public/images', $image);
-             $url = Storage::url($path);
-             $recipe['image'] = $url; // add the path to the database
-
-            $recipe->save();
-
-            return Response::json(['message' => 'Image uploaded and recipe info saved successfully.']);
+                }
+           
             }
 
 
@@ -64,11 +76,14 @@ class RecipeController extends BaseController
 
                 public function update(Request $request, $id)
             {
+
+                if(Auth::user()->role=="1"){
                 $recipe = Recipe::find($id);
                 $recipe->title = $request->input('title');
                 $recipe->recipe = $request->input('recipe');
                 $recipe->time = $request->input('time');
                 $recipe->save();
+                }
 
                 return response()->json($recipe, 200);
             }

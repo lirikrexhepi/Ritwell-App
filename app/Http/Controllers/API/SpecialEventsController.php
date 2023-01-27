@@ -20,15 +20,18 @@ class SpecialEventsController extends BaseController
         * @param  \Illuminate\Http\Request  $request
         * @return \Illuminate\Http\Response
         */
+        
             public function store(Request  $request)
             {
-            
+                if(Auth::user()->role=="1"){
+                    SpecialEvents::create(['title'=>$request->title,'description'=>$request->description,'eventType'=>$request->eventType]);
+                
 
-            $events = new SpecialEvents();
-            $events['title'] = $request->title;
-            $events['description'] = $request->description;
+          //  $events = new SpecialEvents();
+           // $events['title'] = $request->title;
+           // $events['description'] = $request->description;
 
-            $eventType = $request->eventType;
+          //  $eventType = $request->eventType;
 
             if($eventType === eventType::Value1){
                 $events->eventType = "Holidays";
@@ -43,6 +46,7 @@ class SpecialEventsController extends BaseController
 
             
             $events->save();
+        }
             }
 
 

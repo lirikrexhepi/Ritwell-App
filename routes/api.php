@@ -20,8 +20,10 @@ use App\Http\Controllers\API\SpecialEventsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    // return $request->user();
+    Route::post('/addRecipe', [RecipeController::class, 'store']);
+    Route::post('/addEvent', [SpecialEventsController::class, 'store']);
 });
 
 
@@ -29,6 +31,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login'])->name('login');
+
+Route::get('logout', function () {
+    Auth::logout();
+    return response()->json(['message'=>'User Sucsesfully Logged Out']);
+    return redirect('/');
+});
 
 Route::post('addAdmins', [AdminController::class, 'register']);
 
@@ -43,11 +51,10 @@ Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $
 
 
 
-//Route::middleware(['auth', 'isAdmin'])->get('/admin', function () {
+//Route::middleware(['auth','isAdmin'])->group(function () {
     Route::post('/addProducts', [ProductController::class, 'store']);
-    Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']);//->middleware('isAdmin')  
+    Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']); 
     
-    Route::post('/addRecipe', [RecipeController::class, 'store'])->middleware('isAdmin');
     Route::put('/updateRecipe/{id}', [RecipeController::class, 'update'], function (Request $id) {
         return 'Recipe '.$id;
     });
@@ -55,7 +62,7 @@ Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $
 
     
 
-    Route::post('/addEvent', [SpecialEventsController::class, 'store']);
+    
     Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Request $id) {
         return 'Events '.$id;
     });

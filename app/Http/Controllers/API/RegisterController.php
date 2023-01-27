@@ -57,7 +57,13 @@
                 } 
                 /** @var \App\Models\User $user */
                 $user = Auth::user(); 
+                Auth::login($user);
                 $token = $user->createToken('main')->plainTextToken; 
-                return response(compact('user', 'token'));
+                return response(compact('user', 'token'))->header('Authorization', 'Bearer '.$token);
+
+
+               
             }
+
+
         }

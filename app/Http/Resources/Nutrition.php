@@ -16,12 +16,13 @@ class Nutrition extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->name,
-            'description' => $this->details,
+            'title' => $this->title,
+            'description' => $this->description,
             'calories' => $this->calories,
             'proteins' => $this->proteins,
             'carbohydrates' => $this->carbohydrates,
             'timeOfDay' => $this->timeOfDay,
+            'image' => $this->image,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

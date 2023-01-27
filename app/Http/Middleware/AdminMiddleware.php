@@ -18,25 +18,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next) 
     {
-            if(Auth::check()){
-
-                //if admin role = 1
-                $user = Auth::guard('api')->user();
-                if(Auth::user()->role == 1){
-                    return $next($request);
-                    
-                }   
-                else{
-                    return response(['msg'=>'You are not authorized for this route!']);
-                }
-            }
-            else{
-                return response(['msg'=>'Log In to gain access!']);
-
-            }
-
-
-        return $next($request);
-
+        if($request->user()->role==1){
+            return $next($request);
+        }else{
+            return response()->json(['msg'=>'You are not authorized to this route!']);
+        }
     }
 }
