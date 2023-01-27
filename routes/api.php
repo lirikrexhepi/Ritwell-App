@@ -21,9 +21,36 @@ use App\Http\Controllers\API\SpecialEventsController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    // return $request->user();
-    Route::post('/addRecipe', [RecipeController::class, 'store']);
+
     Route::post('/addEvent', [SpecialEventsController::class, 'store']);
+
+    //Route::middleware(['auth','isAdmin'])->group(function () {
+        Route::post('/addProducts', [ProductController::class, 'store']);
+        Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']); 
+        
+        Route::put('/updateRecipe/{id}', [RecipeController::class, 'update'], function (Request $id) {
+            return 'Recipe '.$id;
+        });
+        Route::delete('/deleteRecipe/{id}', [RecipeController::class, 'destroy']);
+    
+        
+    
+    
+        Route::put('/updateEvent/{id}', [SpecialEventsController::class, 'update'], function (Request $id) {
+            return 'Recipe '.$id;
+        });
+        Route::delete('/deleteEvent/{id}', [SpecialEventsController::class, 'destroy']);  
+    
+    
+        //Nutrition
+    
+        Route::post('/nutritionPlan', [NutritionController::class, 'store']);
+        Route::put('/updateNutritionPlan/{id}', [NutritionController::class, 'update'], function (Request $id) {
+            return 'Recipe '.$id;
+        });
+        Route::delete('/deleteNutritionPlan/{id}', [NutritionController::class, 'destroy']); 
+        
+
 });
 
 
@@ -49,39 +76,10 @@ Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $
     return 'Recipe '.$id;
 });
 
+Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Request $id) {
+    return 'Events '.$id;
+});
 
-
-//Route::middleware(['auth','isAdmin'])->group(function () {
-    Route::post('/addProducts', [ProductController::class, 'store']);
-    Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']); 
-    
-    Route::put('/updateRecipe/{id}', [RecipeController::class, 'update'], function (Request $id) {
-        return 'Recipe '.$id;
-    });
-    Route::delete('/deleteRecipe/{id}', [RecipeController::class, 'destroy']);
-
-    
-
-    
-    Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Request $id) {
-        return 'Events '.$id;
-    });
-    Route::put('/updateEvent/{id}', [SpecialEventsController::class, 'update'], function (Request $id) {
-        return 'Recipe '.$id;
-    });
-    Route::delete('/deleteEvent/{id}', [SpecialEventsController::class, 'destroy']);  
-
-
-    //Nutrition
-
-    Route::post('/nutritionPlan', [NutritionController::class, 'store']);
-    Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function (Request $id) {
-        return 'Events '.$id;
-    });
-    Route::put('/updateNutritionPlan/{id}', [NutritionController::class, 'update'], function (Request $id) {
-        return 'Recipe '.$id;
-    });
-    Route::delete('/deleteNutritionPlan/{id}', [NutritionController::class, 'destroy']); 
-    
-
-//});
+Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function (Request $id) {
+    return 'Events '.$id;
+});

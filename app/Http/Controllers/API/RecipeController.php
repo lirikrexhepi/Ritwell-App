@@ -27,7 +27,7 @@ class RecipeController extends BaseController
                 if(Auth::user()->role=="1"){
                    // $path = Storage::putFile('public/images', $image);
                      //$url = Storage::url($path);
-                     $path = $request->file('image')->store('images');
+                    $path = $request->file('image')->store('images');
                     Recipe::create(['title'=>$request->title,'recipe'=>$request->recipe,'time'=>$request->time,'image'=>$path]);
                     //$image = $request->file('image');
                      
@@ -58,7 +58,7 @@ class RecipeController extends BaseController
             {
             $recipe = Recipe::findOrFail($id);
             
-            if ($recipe->isEmpty()) {
+            if ($recipe==null) {
             return $this->sendError('Recipe not found.');
             }
 
@@ -83,9 +83,12 @@ class RecipeController extends BaseController
                 $recipe->recipe = $request->input('recipe');
                 $recipe->time = $request->input('time');
                 $recipe->save();
-                }
 
                 return response()->json($recipe, 200);
+                }
+                else{
+                    return response()->json(['message' => 'Unauthenticated user']);
+                }
             }
 
 

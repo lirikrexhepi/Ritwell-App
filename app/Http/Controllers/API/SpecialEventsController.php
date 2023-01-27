@@ -33,19 +33,6 @@ class SpecialEventsController extends BaseController
 
           //  $eventType = $request->eventType;
 
-            if($eventType === eventType::Value1){
-                $events->eventType = "Holidays";
-            }
-            elseif($eventType === eventType::Value2){
-                $events->eventType = "Exchange";
-            }
-            elseif($eventType === eventType::Value3){
-                $events->eventType = "Absent";
-            }
-            
-
-            
-            $events->save();
         }
             }
 
