@@ -6,6 +6,7 @@ use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RecipeController;
 use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\MetricController;
 use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
 
@@ -53,6 +54,8 @@ use App\Http\Controllers\API\SpecialEventsController;
 
                 ////ADMIN FUNCTION
                 Route::post('/addAdmins', [AdminController::class, 'register']);
+
+                Route::put('/addMetrics/{id}', [MetricController::class, 'update']);
 
 
     });

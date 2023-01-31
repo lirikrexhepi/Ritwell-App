@@ -12,6 +12,43 @@
 
 namespace App\Models{
 /**
+ * App\Models\Metrics
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string|null $email_verified_at
+ * @property string $password
+ * @property string $age
+ * @property string $gender
+ * @property string $weight
+ * @property string $height
+ * @property int $role
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereWeight($value)
+ */
+	class Metrics extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Nutrition
  *
  * @property int $id
@@ -143,8 +180,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $age
+ * @property string $gender
+ * @property string $weight
+ * @property string $height
  * @property int $role
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereHeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereWeight($value)
  */
 	class User extends \Eloquent {}
 }
