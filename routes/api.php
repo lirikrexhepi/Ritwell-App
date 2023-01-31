@@ -9,6 +9,7 @@ use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\MetricController;
 use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
+use App\Http\Controllers\API\ClientFolderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +53,20 @@ use App\Http\Controllers\API\SpecialEventsController;
                 Route::delete('/deleteNutritionPlan/{id}', [NutritionController::class, 'destroy']); 
 
 
+                //Metrics
+                Route::put('/addMetrics/{email}', [MetricController::class, 'update']);
+                Route::get('metrics/{email}', [MetricController::class, 'show']);
+
+
                 ////ADMIN FUNCTION
                 Route::post('/addAdmins', [AdminController::class, 'register']);
 
-                Route::put('/addMetrics/{id}', [MetricController::class, 'update']);
+                Route::get('allUsers', [ClientFolderController::class, 'index']);
+
+
+                Route::get('user/{email}', [ClientFolderController::class, 'show'], function (Request $email) {
+                    return 'User '.$email;
+                });
 
 
     });
@@ -94,3 +105,5 @@ Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Req
 Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function (Request $id) {
     return 'Events '.$id;
 });
+
+

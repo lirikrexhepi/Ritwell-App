@@ -12,51 +12,25 @@ use App\Models\User;
 
 class MetricController extends BaseController
 {
-        /**
-        * Store a newly created resource in storage.
-        *
-        * @param  \Illuminate\Http\Request  $request
-        * @return \Illuminate\Http\Response
-        */
-            /*public function store(Request  $request)
+      
+
+
+            public function show($email)
             {
-                    
-                Metrics::create([
-                                        'age'=>$request->age,
-                                        'gender'=>$request->gender,
-                                        'weight'=>$request->weight,
-                                        'height'=>$request->height
-                                 ]);
-
-                    return response()->json(['message' => 'Metrics saved successfully.']);
-    
-            }*/
-
-
-            public function show($id)
-            {
-            $metric = Metrics::findOrFail($id);
+                $metric = User::where('email', $email)->first();
             
-            if ($metric==null) {
-            return $this->sendError('Metrics not found.');
+                if (!$metric) {
+                    return $this->sendError('Metrics not found.');
+                }
+            
+                return $this->sendResponse(new MetricsResource($metric), 'Metrics retrieved successfully.');
             }
 
-            return $this->sendResponse(new MetricsResource($metric), 'Metrics retrieved successfully.');
-            } 
 
 
-            /**
-                * Update the specified resource in storage.
-                *
-                * @param  \Illuminate\Http\Request  $request
-                * @param  int  $id
-                * @return \Illuminate\Http\Response
-                */
-
-            public function update(Request $request, $id)
+            public function update(Request $request, $email)
             {
- 
-                $metric = User::find($id);
+                $metric = User::where('email', $email)->first();
                 $metric->age = $request->input('age');
                 $metric->gender = $request->input('gender');
                 $metric->weight = $request->input('weight');
