@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('height')->default('n/a');
             $table->integer('role')->default('0');
             $table->string('reset_token')->nullable();
+            $table->timestamp('password_reset_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

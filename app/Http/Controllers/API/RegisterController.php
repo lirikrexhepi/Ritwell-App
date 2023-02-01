@@ -76,23 +76,65 @@
 
 
 
+            #PasswordReset
 
-            public function forgetPassword(Request $request) 
+            public function forgotPassword(Request $request)
             {
-                $validatedData = $request->validate([
-                    'email' => 'required|email|string|exists:users,email', 
+                $request->validate([
+                    'email' => 'required|email|string|exists:users,email',
                 ]);
-                
-                $user = User::whereEmail($validatedData['email'])->first();
+
+                $user = User::where('email', $request->email)->first();
+
+                if (!$user) {
+                    return response(['message' => 'User with this email not found.'], 404);
+                }
+
                 $token = Str::random(60);
                 $user->reset_token = $token;
+                $user->password_reset_at = now();
                 $user->save();
-                
-                // send password reset email with the token
-                Mail::to($user->email)->send(new PasswordReset($token));
 
-                return response()->json(['message' => 'Password reset email sent']);
+                // send the password reset link to the user
+                // ...
+
+                return response(['message' => 'Password reset link sent to your email.']);
             }
 
+            public function resetPassword(Request $request)
+            {
+                $request->validate([
+                    'email' => 'required|email|string|exists:users,email',
+                    'token' => 'required',
+                    'password' => 'required|confirmed|min:6'
+                ]);
 
-        }
+                $user = User::where('email', $request->email)->first();
+
+                if (!$user) {
+                    return response(['message' => 'User with this email not found.'], 404);
+                }
+
+                if (!Hash::check($request->token, $user->password_reset_token)) {
+                    return response(['message' => 'Password reset token is invalid.'], 401);
+                }
+
+                if (now()->diffInMinutes($user->password_reset_at) > 60) {
+                    return response(['message' => 'Password reset token has expired.'], 401);
+                }
+
+                $user->password = bcrypt($request->password);
+                $user->reset_token = null;
+                $user->password_reset_at = null;
+                $user->save();
+
+                return response(['message' => 'Password reset successfully.']);
+            }
+
+            
+
+
+
+
+
+}

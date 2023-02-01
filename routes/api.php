@@ -107,5 +107,5 @@ Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function 
 });
 
 
-Route::post('forget-password', [RegisterController::class, 'forgetPassword']);
+Route::post('forget-password', [RegisterController::class, 'forgotPassword']);
 
