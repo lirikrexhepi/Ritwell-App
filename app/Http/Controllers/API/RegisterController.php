@@ -6,6 +6,7 @@
         use App\Http\Controllers\API\BaseController as BaseController;
         use App\Models\User;
         use Illuminate\Support\Facades\Auth;
+        use Illuminate\Support\Str;
         use Validator;
  
         class RegisterController extends BaseController
@@ -61,8 +62,33 @@
                 $token = $user->createToken('main')->plainTextToken; 
                 return response(compact('user', 'token'))->header('Authorization', 'Bearer '.$token);
 
+            }
 
-               
+
+            public function logout(Request $request) 
+            {
+                $request->user()->tokens()->delete();
+                return response()->json(['message' => 'Successfully logged out']);
+            }
+
+
+
+
+            public function forgetPassword(Request $request) 
+            {
+                $validatedData = $request->validate([
+                    'email' => 'required|email|string|exists:users,email', 
+                ]);
+                
+                $user = User::whereEmail($validatedData['email'])->first();
+                $token = Str::random(60);
+                $user->reset_token = $token;
+                $user->save();
+                
+                // send password reset email with the token
+                Mail::to($user->email)->send(new PasswordReset($token));
+
+                return response()->json(['message' => 'Password reset email sent']);
             }
 
 

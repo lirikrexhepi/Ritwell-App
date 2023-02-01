@@ -48,41 +48,34 @@ class SpecialEventsController extends BaseController
 
 
 
-            /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
 
-    public function update(Request $request, $id)
-{
-    if(Auth::user()->role=="1"){
-            $events = SpecialEvents::find($id);
-            $events->title = $request->input('title');
-            $events->description = $request->input('description');
-            $option = $request->input('eventType');
+        public function update(Request $request, $id)
+        {
+            if(Auth::user()->role=="1"){
+                    $events = SpecialEvents::find($id);
+                    $events->title = $request->input('title');
+                    $events->description = $request->input('description');
+                    $option = $request->input('eventType');
 
-            if($option === eventType::Value1){
-                $events->eventType = "Holidays";
+                    if($option === eventType::Value1){
+                        $events->eventType = "Holidays";
+                    }
+                    elseif($option === eventType::Value2){
+                        $events->eventType = "Exchange";
+                    }
+                    elseif($option === eventType::Value3){
+                        $events->eventType = "Absent";
+                    }
+
+
+                    $events->save();
+
+                    return response()->json(['message' => 'Updated Event successfully']);
+        }
+            else{
+                return response()->json(['message' => 'Unauthorized']);
             }
-            elseif($option === eventType::Value2){
-                $events->eventType = "Exchange";
-            }
-            elseif($option === eventType::Value3){
-                $events->eventType = "Absent";
-            }
-
-
-            $events->save();
-
-            return response()->json(['message' => 'Updated Event successfully']);
-}
-    else{
-        return response()->json(['message' => 'Unauthorized']);
-    }
-}
+        }
 
 
 

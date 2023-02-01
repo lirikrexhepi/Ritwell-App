@@ -10,6 +10,7 @@ use App\Http\Controllers\API\MetricController;
 use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
 use App\Http\Controllers\API\ClientFolderController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,10 @@ use App\Http\Controllers\API\ClientFolderController;
                 });
 
 
+                Route::post('/logout', [RegisterController::class, 'logout']);
+                
+
+
     });
 
 
@@ -78,11 +83,6 @@ use App\Http\Controllers\API\ClientFolderController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login'])->name('login');
 
-Route::get('logout', function () {
-    Auth::logout();
-    return response()->json(['message'=>'User Sucsesfully Logged Out']);
-    return redirect('/');
-});
 
 
 
@@ -106,4 +106,6 @@ Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function 
     return 'Events '.$id;
 });
 
+
+Route::post('forget-password', [RegisterController::class, 'forgetPassword']);
 
