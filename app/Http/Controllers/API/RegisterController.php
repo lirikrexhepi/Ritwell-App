@@ -8,6 +8,9 @@
         use Illuminate\Support\Facades\Auth;
         use Illuminate\Support\Str;
         use Validator;
+        use Illuminate\Support\Facades\Mail;
+        use App\Mail\PasswordReset;
+
  
         class RegisterController extends BaseController
         {
