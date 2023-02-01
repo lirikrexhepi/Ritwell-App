@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('weight')->default('n/a');
             $table->string('height')->default('n/a');
             $table->integer('role')->default('0');
+            $table->string('reset_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
