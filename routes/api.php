@@ -10,6 +10,7 @@ use App\Http\Controllers\API\MetricController;
 use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
 use App\Http\Controllers\API\ClientFolderController;
+use App\Http\Controllers\API\HomeworkFolderController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -71,6 +72,14 @@ use Illuminate\Support\Facades\Auth;
 
 
                 Route::post('/logout', [RegisterController::class, 'logout']);
+
+
+
+                Route::post('/addHomework/{email}', [HomeworkFolderController::class, 'store']);
+
+
+
+                
                 
 
 

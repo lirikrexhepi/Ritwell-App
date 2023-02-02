@@ -9,7 +9,10 @@
         use Illuminate\Support\Str;
         use Validator;
         use Illuminate\Support\Facades\Mail;
-        use App\Mail\PasswordReset;
+        use APP\Models\PasswordReset;
+        use Illuminate\Support\Facades\URL;
+        use App\Http\Controllers\API\forgetPasswordMail;
+
 
  
         class RegisterController extends BaseController
@@ -78,63 +81,52 @@
 
             #PasswordReset
 
-            public function forgotPassword(Request $request)
-            {
-                $request->validate([
-                    'email' => 'required|email|string|exists:users,email',
-                ]);
+            public function forgotPassword(Request $request){
+                try{
 
-                $user = User::where('email', $request->email)->first();
+                    $user = User::where('email', $request->email)->get();
+                     if(count($user)>0){
 
-                if (!$user) {
-                    return response(['message' => 'User with this email not found.'], 404);
+                        $token = Str::random(40);
+                        $domain = URL::to('/');
+                        $url = $domain.'/reset-password?token='.$token;
+
+                        $data['url'] = $url;
+                        $data['email'] = $request->email;
+                        $data['title'] = "Password Reset";
+                        $data['body'] = "Please click the link below to reset ur password";
+
+
+                        Mail::send('forgetPasswordMail',['data'=>$data], function($message) use ($data){
+                            $message->to($data['email'])->subject($data['title']);                            
+                        });
+
+                        $datetime = Carbon::now()->format('Y-m-d H:i:s');
+                        PasswordReset::updateOrCreate(
+                            ['email' => $request->email],
+                            [
+                                'email' => $request->email,
+                                'token' => $token,
+                                'created_at' => $datetime
+                            ]
+                            );
+
+
+
+
+
+                     }else{
+                        return response()->json(['success'=>false, 'msg'=>'User not Found']);
+                     }
+
+
+                }catch(\Exception $e){
+                    return response()->json(['success'=>false, 'msg'=>$e->getMessage()]);
+
                 }
 
-                $token = Str::random(60);
-                $user->reset_token = $token;
-                $user->password_reset_at = now();
-                $user->save();
 
-                // send the password reset link to the user
-                // ...
-
-                return response(['message' => 'Password reset link sent to your email.']);
             }
-
-            public function resetPassword(Request $request)
-            {
-                $request->validate([
-                    'email' => 'required|email|string|exists:users,email',
-                    'token' => 'required',
-                    'password' => 'required|confirmed|min:6'
-                ]);
-
-                $user = User::where('email', $request->email)->first();
-
-                if (!$user) {
-                    return response(['message' => 'User with this email not found.'], 404);
-                }
-
-                if (!Hash::check($request->token, $user->password_reset_token)) {
-                    return response(['message' => 'Password reset token is invalid.'], 401);
-                }
-
-                if (now()->diffInMinutes($user->password_reset_at) > 60) {
-                    return response(['message' => 'Password reset token has expired.'], 401);
-                }
-
-                $user->password = bcrypt($request->password);
-                $user->reset_token = null;
-                $user->password_reset_at = null;
-                $user->save();
-
-                return response(['message' => 'Password reset successfully.']);
-            }
-
-            
-
-
-
 
 
 }
