@@ -77,6 +77,8 @@ use Illuminate\Support\Facades\Auth;
 
                 Route::post('/addHomework/{email}', [HomeworkFolderController::class, 'store']);
 
+                Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
+
 
 
                 

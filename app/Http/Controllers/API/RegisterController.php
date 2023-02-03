@@ -8,10 +8,14 @@
         use Illuminate\Support\Facades\Auth;
         use Illuminate\Support\Str;
         use Validator;
+        use App\Models\PasswordReset;
         use Illuminate\Support\Facades\Mail;
-        use APP\Models\PasswordReset;
-        use Illuminate\Support\Facades\URL;
-        use App\Http\Controllers\API\forgetPasswordMail;
+        use Illuminate\Support\Facades\URL;        
+        use App\Http\Controllers\API\forgetPasswordMail;        
+        use Carbon\Carbon;
+        
+
+
 
 
  
@@ -124,9 +128,31 @@
                     return response()->json(['success'=>false, 'msg'=>$e->getMessage()]);
 
                 }
-
-
             }
+
+
+
+
+            public function resetPassword(Request $request){
+
+                $request->validate(
+                    ['password' =>'required|string|min:6|confirmed']
+                );
+              
+
+                $user = User::find($request->id);
+                $user->password = Hash::make($request -> password);
+                $user->save();
+
+                PasswordReset::where('email', $user->email)->delete();
+
+
+                return response()->json(['success'=>true, 'msg'=>'password sucesfully reset']);
+
+
+
+
+}
 
 
 }

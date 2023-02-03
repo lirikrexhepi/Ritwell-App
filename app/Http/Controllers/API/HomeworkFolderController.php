@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Homework;
 use App\Models\User;
@@ -23,7 +25,7 @@ class HomeworkFolderController extends Controller
         Homework::create([
             'title'=>$request->title,
             'instruction'=>$request->instruction,
-            'recipient_email' => $user->recipient_email
+            'recipient_email' => $email
         ]);
 
         return response()->json(['message' => 'Homework sent successfully.']);
@@ -35,7 +37,7 @@ class HomeworkFolderController extends Controller
 
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,)
         {
             if(Auth::user()->role=="1"){
                     $homework = Homework::find($id);

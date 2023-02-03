@@ -33,6 +33,7 @@ class NutritionController extends BaseController
                                     'calories'=>$request->calories,
                                     'proteins'=>$request->proteins,
                                     'carbohydrates'=>$request->carbohydrates,
+                                    'timeOfDay' => $request->timeOfDay,
                                     'image'=>$path
                                 ]);
 
