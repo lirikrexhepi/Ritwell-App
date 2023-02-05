@@ -57,7 +57,9 @@ class User extends Authenticatable
         'age',
         'gender',
         'weight',
-        'height'
+        'height',
+        'strongPoints',
+        'weakPoints'
 
     ];
 

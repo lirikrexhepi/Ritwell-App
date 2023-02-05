@@ -23,6 +23,8 @@ namespace App\Models{
  * @property string $gender
  * @property string $weight
  * @property string $height
+ * @property string $strongPoints
+ * @property string $weakPoints
  * @property int $role
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -41,7 +43,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Metrics wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereStrongPoints($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereWeakPoints($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Metrics whereWeight($value)
  */
 	class Metrics extends \Eloquent {}
@@ -201,11 +205,15 @@ namespace App\Models{
  * @property string $gender
  * @property string $weight
  * @property string $height
+ * @property string $strongPoints
+ * @property string $weakPoints
  * @property int $role
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereHeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereStrongPoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereWeakPoints($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereWeight($value)
  */
 	class User extends \Eloquent {}

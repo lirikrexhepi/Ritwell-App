@@ -23,6 +23,8 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female', 'other', 'n/a'])->default('n/a');
             $table->string('weight')->default('n/a');
             $table->string('height')->default('n/a');
+            $table->string('strongPoints')->default('n/a');
+            $table->string('weakPoints')->default('n/a');
             $table->integer('role')->default('0');
             $table->rememberToken();
             $table->timestamps();

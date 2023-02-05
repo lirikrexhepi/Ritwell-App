@@ -72,6 +72,7 @@ use Illuminate\Support\Facades\Auth;
 
 
                 Route::post('/logout', [RegisterController::class, 'logout']);
+                
 
 
 
@@ -79,6 +80,10 @@ use Illuminate\Support\Facades\Auth;
 
                 Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
 
+
+                //Strong and Weak Points
+                Route::put('/addProperties/{email}', [ClientFolderController::class, 'clientProperties']);
+                Route::get('properties/{email}', [ClientFolderController::class, 'clientPropertiesShow']);
 
 
                 

@@ -13,7 +13,7 @@
         use Illuminate\Support\Facades\URL;        
         use App\Http\Controllers\API\forgetPasswordMail;        
         use Carbon\Carbon;
-        
+        use Illuminate\Support\Facades\Hash;      
 
 
 
@@ -93,7 +93,7 @@
 
                         $token = Str::random(40);
                         $domain = URL::to('/');
-                        $url = $domain.'/reset-password?token='.$token;
+                        $url = $domain.'/reset-Password?token='.$token;
 
                         $data['url'] = $url;
                         $data['email'] = $request->email;
@@ -114,45 +114,50 @@
                                 'created_at' => $datetime
                             ]
                             );
-
-
-
-
-
+                            return response()->json(['success'=>true, 'msg'=>'Password Reset Sent']);
                      }else{
                         return response()->json(['success'=>false, 'msg'=>'User not Found']);
                      }
-
-
                 }catch(\Exception $e){
                     return response()->json(['success'=>false, 'msg'=>$e->getMessage()]);
-
                 }
             }
 
 
+            public function resetPasswordLoad(Request $request)
+            {
+                $resetData = PasswordReset::where('token', $request->token)->first();
+                if ($resetData) {
+                    $user = User::where('email', $resetData->email)->first();
+                    if ($user) {
+                        return view('resetPassword', ['user' => $user]);
+                    }
+                }
+                return response()->json(['success' => false, 'msg' => 'error404']);
+            }
+            
+
+            
+            public function resetPassword(Request $request)
+            {
+                $request->validate([
+                    'password' => 'required|string|min:6|confirmed',
+                    'user_id' => 'required|integer'
+                ]);
+
+                $user = User::find($request->user_id);
+                if ($user) {
+                    $user->password = Hash::make($request->password);
+                    $user->save();
+                    PasswordReset::where('email', $user->email)->delete();
+                    return "<h1>Password reset successfully</h1>";
+                } else {
+                    return "<h1>Error: User not found</h1>";
+                }
+            }
 
 
-            public function resetPassword(Request $request){
-
-                $request->validate(
-                    ['password' =>'required|string|min:6|confirmed']
-                );
-              
-
-                $user = User::find($request->id);
-                $user->password = Hash::make($request -> password);
-                $user->save();
-
-                PasswordReset::where('email', $user->email)->delete();
-
-
-                return response()->json(['success'=>true, 'msg'=>'password sucesfully reset']);
-
-
-
-
-}
+  
 
 
 }
