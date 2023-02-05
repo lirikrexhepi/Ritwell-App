@@ -86,7 +86,7 @@ namespace App\Models{
 /**
  * App\Models\PasswordReset
  *
- * @property int $email
+ * @property string $email
  * @property string $token
  * @property string|null $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordReset newModelQuery()

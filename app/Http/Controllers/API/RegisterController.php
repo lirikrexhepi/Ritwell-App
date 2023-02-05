@@ -127,10 +127,13 @@
             public function resetPasswordLoad(Request $request)
             {
                 $resetData = PasswordReset::where('token', $request->token)->first();
+                //  dd($resetData);
+              
                 if ($resetData) {
                     $user = User::where('email', $resetData->email)->first();
+                    
                     if ($user) {
-                        return view('resetPassword', ['user' => $user]);
+                        return view('resetPassword', ['user' => $user, 'user_id' => $user->id]);
                     }
                 }
                 return response()->json(['success' => false, 'msg' => 'error404']);
