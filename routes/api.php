@@ -26,7 +26,38 @@ use Illuminate\Support\Facades\Auth;
 
     Route::middleware('auth:sanctum')->group(function () {
         // return $request->user();
-                
+
+
+        //The Routes for the show methods
+
+        Route::get('allProducts', [SpecialEventsController::class, 'index']);
+        Route::get('allHomework/{email}', [HomeworkFolderController::class, 'index']);
+
+            //Nutrition Plan Show Based on Time of Day
+            Route::get('breakfastNutrition', [NutritionController::class, 'breakfastIndex']);
+            Route::get('lunchNutrition', [NutritionController::class, 'lunchIndex']);
+            Route::get('dinnerNutrition', [NutritionController::class, 'dinnerIndex']);
+
+
+        Route::get('products/{id}', [ProductController::class, 'show'], function (Request $id) {
+            return 'Products '.$id;
+        });
+        
+        
+        Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $id) {
+            return 'Recipe '.$id;
+        });
+        
+        Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Request $id) {
+            return 'Events '.$id;
+        });
+        
+        Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function (Request $id) {
+            return 'Events '.$id;
+        });
+
+
+        //The routes for the Admin Functionality        
 
                 Route::post('/addProducts', [ProductController::class, 'store']);
                 Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']); 
@@ -102,25 +133,9 @@ Route::post('login', [RegisterController::class, 'login'])->name('login');
 
 
 
-Route::get('allProducts', [SpecialEventsController::class, 'index']);
-
-Route::get('products/{id}', [ProductController::class, 'show'], function (Request $id) {
-    return 'Products '.$id;
-});
 
 
 
-Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $id) {
-    return 'Recipe '.$id;
-});
-
-Route::get('event/{id}', [SpecialEventsController::class, 'show'], function (Request $id) {
-    return 'Events '.$id;
-});
-
-Route::get('nutritionPlan/{id}', [NutritionController::class, 'show'], function (Request $id) {
-    return 'Events '.$id;
-});
 
 
 Route::post('forget-password', [RegisterController::class, 'forgotPassword']);

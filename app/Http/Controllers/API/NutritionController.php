@@ -15,6 +15,30 @@ use Log;
 
 class NutritionController extends BaseController
 {
+        //These functions will show all of the nutrition items in their respective time of days
+
+        public function breakfastIndex()
+        {
+            $breakfasts = Nutrition::where('timeOfDay', 'Breakfast')->get();
+            return $this->sendResponse(NutritionResource::collection($breakfasts), 'Breakfasts retrieved successfully.');
+        }
+
+        public function lunchIndex()
+        {
+            $lunches = Nutrition::where('timeOfDay', 'Lunch')->get();
+            return $this->sendResponse(NutritionResource::collection($lunches), 'Lunches retrieved successfully.');
+        }
+
+        public function dinnerIndex()
+        {
+            $dinners = Nutrition::where('timeOfDay', 'Dinner')->get();
+            return $this->sendResponse(NutritionResource::collection($dinners), 'Dinners retrieved successfully.');
+        }
+
+
+
+
+
         /**
         * Store a newly created resource in storage.
         *

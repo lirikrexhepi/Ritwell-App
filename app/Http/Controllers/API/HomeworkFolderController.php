@@ -12,6 +12,22 @@ use App\Models\User;
 class HomeworkFolderController extends Controller
 {
 
+    public function index(Request $request, $email)
+{
+   
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return response()->json(['message' => 'User not found']);
+        }
+
+        $homework = Homework::where('recipient_email', $email)->get();
+        return response()->json(['homework' => $homework]);
+    }
+    
+
+
+
+
     
     public function store(Request  $request, $email)
 {
