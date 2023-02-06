@@ -73,29 +73,19 @@ class ProductController extends BaseController
     * @return \Illuminate\Http\Response
     */
 
-    public function update(Request $request, Products $product)
+    public function update(Request $request, $id)
     {
         if(Auth::user()->role=="1"){
-        $input = $request->all();
+            $product = Products::find($id);
+            $product->name = $request->input('name');
+            $product->details = $request->input('details');
+            $product->save();
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'details' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-
-        $product->name = $input['name'];
-        $product->detail = $input['details'];
-        $product->save();
-
-        return $this->sendResponse(new ProductResource($product), 'Product updated successfully.');
-    }
-                    else{
-                        return response()->json(['message' => 'Unauthorized']);
-                    }
+            return response()->json($product, 200);
+            }
+            else{
+                return response()->json(['message' => 'Product updated successfully']);
+            }
 
     }
 

@@ -31,13 +31,17 @@ class SpecialEventsController extends BaseController
             public function store(Request  $request)
             {
                 if(Auth::user()->role=="1"){
-                    SpecialEvents::create([
-                        'title'=>$request->title,
-                        'description'=>$request->description,
-                        'eventType'=>$request->eventType
+                    $validatedData = $request->validate([
+                        'eventType' => 'required|in:Holidays,Exchange,Absent'
                     ]);
 
-                    return response()->json(['message' => 'Special Event saved successfully.']);
+                    $event = SpecialEvents::create([
+                        'title'=>$request->title,
+                        'description'=>$request->description,
+                        'eventType'=>$validatedData['eventType']
+                    ]);
+
+                    return response()->json(['message' => 'Special Event saved successfully.','event' => $event ]);
             }
             else{
                     return response()->json(['message' => 'Unauthorized']);

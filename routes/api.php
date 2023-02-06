@@ -30,8 +30,9 @@ use Illuminate\Support\Facades\Auth;
 
         //The Routes for the show methods
 
-        Route::get('allProducts', [SpecialEventsController::class, 'index']);
+        Route::get('allProducts', [ProductController::class, 'index']);
         Route::get('allHomework/{email}', [HomeworkFolderController::class, 'index']);
+        Route::get('allRecipes', [RecipeController::class, 'index']);
 
             //Nutrition Plan Show Based on Time of Day
             Route::get('breakfastNutrition', [NutritionController::class, 'breakfastIndex']);
@@ -60,6 +61,9 @@ use Illuminate\Support\Facades\Auth;
         //The routes for the Admin Functionality        
 
                 Route::post('/addProducts', [ProductController::class, 'store']);
+                Route::put('/updateProducts/{id}', [ProductController::class, 'update'], function (Request $id) {
+                    return 'Products '.$id;
+                });
                 Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']); 
 
                 Route::post('/addRecipe', [RecipeController::class, 'store']);
@@ -108,7 +112,6 @@ use Illuminate\Support\Facades\Auth;
 
 
                 Route::post('/addHomework/{email}', [HomeworkFolderController::class, 'store']);
-
                 Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
 
 

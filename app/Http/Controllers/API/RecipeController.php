@@ -10,6 +10,14 @@ use App\Models\Recipe;
 
 class RecipeController extends BaseController
 {
+
+    public function index()
+    {
+        $recipe = Recipe::all();
+
+        return $this->sendResponse(RecipeResource::collection($recipe), 'Recipes retrieved successfully.');
+    }
+
         /**
         * Store a newly created resource in storage.
         *

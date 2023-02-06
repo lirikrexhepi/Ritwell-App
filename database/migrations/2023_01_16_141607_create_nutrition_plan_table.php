@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('calories');
             $table->string('proteins');
             $table->string('carbohydrates');
-            $table->string('timeOfDay');
+            $table->enum('timeOfDay', ['Breakfast', 'Lunch', 'Dinner']);
             $table->string('image' , 255);
             
         });

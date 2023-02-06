@@ -59,6 +59,7 @@ class HomeworkFolderController extends Controller
                     $homework = Homework::find($id);
                     $homework->title = $request->input('title');
                     $homework->instruction = $request->input('instruction');
+                    $homework->recipient_email = $request->input('recipient_email');
                     $homework->save();
 
                     return response()->json(['message' => 'Updated homework successfully']);
