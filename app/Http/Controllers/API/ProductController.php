@@ -1,6 +1,7 @@
 <?php
 // app/Http/Controllers/API/ProductController.php
 namespace App\Http\Controllers\API;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends BaseController
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $products = Products::all();
@@ -25,34 +26,33 @@ class ProductController extends BaseController
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
-{
-            $path = $request->file('image')->store('images');
-            if(Auth::user()->role=="1"){
-                Products::create([
-                    'name'=>$request->name,
-                    'details'=>$request->details,
-                    'image'=>$path
-                ]);
+    {
+        $path = $request->file('image')->store('images');
+        if (Auth::user()->role == "1") {
+            Products::create([
+                'name' => $request->name,
+                'details' => $request->details,
+                'image' => $path
+            ]);
 
-                return response()->json(['message' => 'Product added successfully.']);
-        }
-        else{
-                return response()->json(['message' => 'Unauthorized']);
+            return response()->json(['message' => 'Product added successfully.']);
+        } else {
+            return response()->json(['message' => 'Unauthorized']);
         }
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function show($id)
     {
@@ -61,21 +61,21 @@ class ProductController extends BaseController
         /*if ($product->isEmpty()) {
             return $this->sendError('Product not found.');
         }*/
-        
+
         return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
-    } 
+    }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function update(Request $request, $id)
     {
-        if(Auth::user()->role=="1"){
+        if (Auth::user()->role == "1") {
 
             $path = $request->file('image')->store('images');
 
@@ -86,19 +86,17 @@ class ProductController extends BaseController
             $product->save();
 
             return response()->json($product, 200);
-            }
-            else{
-                return response()->json(['message' => 'Product updated successfully']);
-            }
-
+        } else {
+            return response()->json(['message' => 'Product updated successfully']);
+        }
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function destroy(Request $request, $id)
     {
