@@ -50,7 +50,7 @@ Route::post('/webhooks/github', function () {
     //Log::info("Git pull output: \n" . $output);
     ;
 
-    exec('cd /var/www/Ritwell-App && git pull ', $output, $return_var);
+    exec('cd /var/www/Ritwell-App && git pull origin main', $output, $return_var);
 
 
 
