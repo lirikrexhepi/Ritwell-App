@@ -48,8 +48,9 @@ Route::post('/webhooks/github', function () {
     //$output = shell_exec('cd /var/www/Ritwell-App && git pull');
 
     //Log::info("Git pull output: \n" . $output);
+    $repo_url = "https://github.com/lirikrexhepi/Ritwell-App";
 
-    exec('cd /var/www/Ritwell-App && git pull https://github.com/lirikrexhepi/Ritwell-App ', $output, $return_var);
+    exec('cd /var/www/Ritwell-App && git pull $repo_url ', $output, $return_var);
 
 
 
