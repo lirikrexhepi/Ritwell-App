@@ -60,9 +60,10 @@ Route::post('/webhooks/github', function () {
     } else {
 
         Log::info("Git pull output: \n" . implode("\n", $output));
-
+        
         Artisan::call('optimize');
     }
+    Log::debug('Executed command: cd /var/www/Ritwell-App && git pull origin main');
 });
 
 Route::get('/reset-Password', [RegisterController::class, 'resetPasswordLoad']);
