@@ -48,8 +48,14 @@ Route::post('/webhooks/github', function () {
     //$output = shell_exec('cd /var/www/Ritwell-App && git pull');
 
     //Log::info("Git pull output: \n" . $output);
+    ;
 
-    exec('cd /var/www/Ritwell-App && git pull ', $output, $return_var);
+    $command = 'cd /var/www/Ritwell-App && git pull origin main';
+
+    exec($command, $output, $return_var);
+
+    Log::info("Command executed: " . $command);
+    Log::info("Git pull output: \n" . implode("\n", $output));
 
 
 
@@ -59,9 +65,10 @@ Route::post('/webhooks/github', function () {
     } else {
 
         Log::info("Git pull output: \n" . implode("\n", $output));
-
+        
         Artisan::call('optimize');
     }
+    Log::debug('Executed command: cd /var/www/Ritwell-App && git pull origin main');
 });
 
 Route::get('/reset-Password', [RegisterController::class, 'resetPasswordLoad']);
