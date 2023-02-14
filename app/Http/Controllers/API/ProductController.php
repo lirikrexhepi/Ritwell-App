@@ -76,20 +76,21 @@ class ProductController extends BaseController
     public function update(Request $request, $id)
     {
         if (Auth::user()->role == "1") {
-
-            $path = $request->file('image')->store('images');
-
-            $product = Products::find($id);
+            $product = Products::findOrFail($id);
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images');
+                $product->image = $path;
+            }
             $product->name = $request->input('name');
             $product->details = $request->input('details');
-            $product->image = $request->$path;
             $product->save();
 
-            return response()->json($product, 200);
+            return response()->json(['message' => 'Product updated successfully.']);
         } else {
-            return response()->json(['message' => 'Product updated successfully']);
+            return response()->json(['message' => 'Unauthorized']);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

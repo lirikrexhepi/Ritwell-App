@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('allProducts', [ProductController::class, 'index']);
     Route::get('allHomework/{email}', [HomeworkFolderController::class, 'index']);
     Route::get('allRecipes', [RecipeController::class, 'index']);
+    Route::get('allEvents', [SpecialEventsController::class, 'index']);
 
     //Nutrition Plan Show Based on Time of Day
     Route::get('breakfastNutrition', [NutritionController::class, 'breakfastIndex']);
