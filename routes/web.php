@@ -3,12 +3,10 @@
 
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\WebhookController;
-
 use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\API\RegisterController;
 
 /*
 
@@ -43,11 +41,11 @@ Route::get('/', function () {
 
 Route::post('/webhooks/github', function () {
 
-    // Code to handle webhook request and pull changes from Github
+        // Code to handle webhook request and pull changes from Github
 
-    //$output = shell_exec('cd /var/www/Ritwell-App && git pull');
+        //$output = shell_exec('cd /var/www/Ritwell-App && git pull');
 
-    //Log::info("Git pull output: \n" . $output);
+        //Log::info("Git pull output: \n" . $output);
     ;
 
     $command = 'cd /var/www/Ritwell-App && git pull origin main';
@@ -65,7 +63,7 @@ Route::post('/webhooks/github', function () {
     } else {
 
         Log::info("Git pull output: \n" . implode("\n", $output));
-        
+
         Artisan::call('optimize');
     }
     Log::debug('Executed command: cd /var/www/Ritwell-App && git pull origin main');
