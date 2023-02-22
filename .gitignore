@@ -16,4 +16,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-config/passport.php
+.env.example
+bootstrap/cache/
+/storage
