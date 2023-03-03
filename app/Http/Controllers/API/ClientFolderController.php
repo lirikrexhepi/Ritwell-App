@@ -42,8 +42,6 @@ class ClientFolderController extends Controller
 
 
 
-
-
     public function clientProperties(Request $request, $email)
     {
         $clientProperties = User::where('email', $email)->first();

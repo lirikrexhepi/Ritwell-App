@@ -18,7 +18,6 @@ class MetricController extends BaseController
             public function show($email)
             {
                 $metric = User::where('email', $email)->first();
-            
                 if (!$metric) {
                     return $this->sendError('Metrics not found.');
                 }
