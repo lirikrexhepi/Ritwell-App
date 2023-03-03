@@ -13,7 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends BaseController
 {
+<<<<<<< HEAD
 
+=======
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     public function index()
     {
         $products = Products::all();
@@ -21,8 +29,17 @@ class ProductController extends BaseController
         return $this->sendResponse(ProductResource::collection($products), 'Products retrieved successfully.');
     }
 
+<<<<<<< HEAD
 
 
+=======
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     public function store(Request $request)
     {
         $path = $request->file('image')->store('images');
@@ -39,6 +56,7 @@ class ProductController extends BaseController
         }
     }
 
+<<<<<<< HEAD
 
     public function show($id)
     {
@@ -47,11 +65,37 @@ class ProductController extends BaseController
         if (!$product) {
             return $this->sendError('Product not found.');
         }
+=======
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show($id)
+    {
+        $product = Products::findOrFail($id);
+        //dd($product);
+        /*if ($product->isEmpty()) {
+            return $this->sendError('Product not found.');
+        }*/
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
 
         return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
     }
 
+<<<<<<< HEAD
 
+=======
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
 
     public function update(Request $request, $id)
     {
@@ -72,6 +116,16 @@ class ProductController extends BaseController
     }
 
 
+<<<<<<< HEAD
+=======
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     public function destroy(Request $request, $id)
     {
         $product = Products::find($id);

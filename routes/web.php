@@ -39,7 +39,11 @@ Route::get('/', function () {
 
 //Route::post('/webhook', [WebhookController::class, 'handle']);
 
+<<<<<<< HEAD
 Route::post('/webhooks/github', function () {
+=======
+Route::post('/webhooks/githubb', function () {
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
 
         // Code to handle webhook request and pull changes from Github
 

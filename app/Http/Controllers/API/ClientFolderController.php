@@ -23,6 +23,7 @@ class ClientFolderController extends Controller
 
 
 
+<<<<<<< HEAD
     public function show($email)
     {
         if (!$email) {
@@ -37,11 +38,25 @@ class ClientFolderController extends Controller
             return response()->json($user, 200);
         } else {
             return response()->json(['error' => 'Unauthenticated user.'], 401);
+=======
+
+    public function show($email)
+    {
+        if (Auth::user()->role == "1") {
+            $user = User::where('email', $email)->first();
+            return response()->json($user, 200);
+        } else {
+            return response()->json(['message' => 'Unauthenticated user']);
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
         }
     }
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     public function clientProperties(Request $request, $email)
     {
         $clientProperties = User::where('email', $email)->first();

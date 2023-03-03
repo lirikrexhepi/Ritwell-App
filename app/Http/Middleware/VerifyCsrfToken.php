@@ -12,6 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+<<<<<<< HEAD
         '/webhooks/github',
+=======
+        '/webhooks/githubb',
+>>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     ];
 }
