@@ -41,19 +41,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('dinnerNutrition', [NutritionController::class, 'dinnerIndex']);
 
 
-<<<<<<< HEAD
 
     //View specific component
-=======
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::get('products/{id}', [ProductController::class, 'show'], function (Request $id) {
         return 'Products ' . $id;
     });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::get('Recipe/{id}', [RecipeController::class, 'show'], function (Request $id) {
         return 'Recipe ' . $id;
     });
@@ -66,29 +59,20 @@ Route::middleware('auth:sanctum')->group(function () {
         return 'Events ' . $id;
     });
 
-<<<<<<< HEAD
     Route::get('/homework/{id}', [HomeworkFolderController::class, 'show']);
 
 
     //The routes for the Admin Functionality        
 
     //Products
-=======
-
-    //The routes for the Admin Functionality        
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::post('/addProducts', [ProductController::class, 'store']);
     Route::put('/updateProducts/{id}', [ProductController::class, 'update'], function (Request $id) {
         return 'Products ' . $id;
     });
     Route::delete('/deleteProducts/{id}', [ProductController::class, 'destroy']);
 
-<<<<<<< HEAD
 
     //Recipes
-=======
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::post('/addRecipe', [RecipeController::class, 'store']);
     Route::put('/updateRecipe/{id}', [RecipeController::class, 'update'], function (Request $id) {
         return 'Recipe ' . $id;
@@ -96,11 +80,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/deleteRecipe/{id}', [RecipeController::class, 'destroy']);
 
 
-<<<<<<< HEAD
     //Events
-=======
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::post('/addEvent', [SpecialEventsController::class, 'store']);
     Route::put('/updateEvent/{id}', [SpecialEventsController::class, 'update'], function (Request $id) {
         return 'Recipe ' . $id;
@@ -109,10 +89,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Nutrition
-<<<<<<< HEAD
-=======
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::post('/nutritionPlan', [NutritionController::class, 'store']);
     Route::put('/updateNutritionPlan/{id}', [NutritionController::class, 'update'], function (Request $id) {
         return 'Recipe ' . $id;
@@ -125,37 +101,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('metrics/{email}', [MetricController::class, 'show']);
 
 
-<<<<<<< HEAD
     //Admin Functions
     Route::post('/addAdmins', [AdminController::class, 'register']);
     Route::get('allUsers', [ClientFolderController::class, 'index']);
-=======
-    ////ADMIN FUNCTION
-    Route::post('/addAdmins', [AdminController::class, 'register']);
-
-    Route::get('allUsers', [ClientFolderController::class, 'index']);
-
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::get('user/{email}', [ClientFolderController::class, 'show'], function (Request $email) {
         return 'User ' . $email;
     });
 
 
-<<<<<<< HEAD
 
     //Log out
     Route::post('/logout', [RegisterController::class, 'logout']);
 
 
     //Homework
-=======
-    Route::post('/logout', [RegisterController::class, 'logout']);
-
-
-
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
     Route::post('/addHomework/{email}', [HomeworkFolderController::class, 'store']);
     Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
 
@@ -172,15 +131,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login'])->name('login');
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
-
->>>>>>> 06bddbf67dbc30c9f0260a7d5c8f46dfa6dd49a7
 Route::post('forget-password', [RegisterController::class, 'forgotPassword']);
