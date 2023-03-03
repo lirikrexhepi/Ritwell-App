@@ -23,20 +23,14 @@ class ClientFolderController extends Controller
 
 
 
+
     public function show($email)
     {
-        if (!$email) {
-            return response()->json(['error' => 'Please provide an email address.'], 400);
-        }
-
         if (Auth::user()->role == "1") {
             $user = User::where('email', $email)->first();
-            if (!$user) {
-                return response()->json(['error' => 'User not found.'], 404);
-            }
             return response()->json($user, 200);
         } else {
-            return response()->json(['error' => 'Unauthenticated user.'], 401);
+            return response()->json(['message' => 'Unauthenticated user']);
         }
     }
 

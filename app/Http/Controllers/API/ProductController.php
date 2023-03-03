@@ -20,8 +20,12 @@ class ProductController extends BaseController
         return $this->sendResponse(ProductResource::collection($products), 'Products retrieved successfully.');
     }
 
-
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $path = $request->file('image')->store('images');
@@ -38,14 +42,20 @@ class ProductController extends BaseController
         }
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function show($id)
     {
-        $product = Products::find($id);
-
-        if (!$product) {
+        $product = Products::findOrFail($id);
+        //dd($product);
+        /*if ($product->isEmpty()) {
             return $this->sendError('Product not found.');
-        }
+        }*/
 
         return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
     }
@@ -69,6 +79,13 @@ class ProductController extends BaseController
         }
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function destroy(Request $request, $id)
     {
