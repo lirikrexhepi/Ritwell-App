@@ -51,14 +51,17 @@ class ProductController extends BaseController
 
     public function show($id)
     {
-        $product = Products::findOrFail($id);
-        //dd($product);
-        /*if ($product->isEmpty()) {
-            return $this->sendError('Product not found.');
-        }*/
+        if (!$id) {
+            return $this->sendError('Please provide a valid product ID.');
+        }
+        $product = Products::find($id);
 
+        if (!$product) {
+            return $this->sendError('Product not found.');
+        }
         return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
     }
+
 
 
     public function update(Request $request, $id)
