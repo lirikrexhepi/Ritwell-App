@@ -10,22 +10,16 @@ use App\Http\Resources\Product as ProductResource;
 use App\Models\Products;
 use Illuminate\Support\Facades\Storage;
 
-
 class ProductController extends BaseController
 {
     public function index()
     {
         $products = Products::all();
-
         return $this->sendResponse(ProductResource::collection($products), 'Products retrieved successfully.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function store(Request $request)
     {
         $path = $request->file('image')->store('images');
@@ -35,25 +29,15 @@ class ProductController extends BaseController
                 'details' => $request->details,
                 'image' => $path
             ]);
-
             return response()->json(['message' => 'Product added successfully.']);
         } else {
             return response()->json(['message' => 'Unauthorized']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function show($id)
     {
-        if (!$id) {
-            return $this->sendError('Please provide a valid product ID.');
-        }
         $product = Products::find($id);
 
         if (!$product) {
@@ -75,20 +59,12 @@ class ProductController extends BaseController
             $product->name = $request->input('name');
             $product->details = $request->input('details');
             $product->save();
-
             return response()->json(['message' => 'Product updated successfully.']);
         } else {
             return response()->json(['message' => 'Unauthorized']);
         }
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function destroy(Request $request, $id)
     {
