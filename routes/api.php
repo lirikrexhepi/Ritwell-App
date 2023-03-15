@@ -11,6 +11,7 @@ use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
 use App\Http\Controllers\API\ClientFolderController;
 use App\Http\Controllers\API\HomeworkFolderController;
+use App\Http\Controllers\API\ImageController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -112,17 +113,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
 
 
-
-
-
-
-
-
-
-
     //Strong and Weak Points
     Route::put('/addProperties/{email}', [ClientFolderController::class, 'clientProperties']);
     Route::get('properties/{email}', [ClientFolderController::class, 'clientPropertiesShow']);
+
+
+    //Display All Images
+    Route::get('/images', [ImageController::class, 'index']);
 });
 
 Route::post('register', [RegisterController::class, 'register']);
