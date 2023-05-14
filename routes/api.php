@@ -106,6 +106,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+
     //Admin Functions
     Route::post('/addAdmins', [AdminController::class, 'register']);
     Route::get('allUsers', [ClientFolderController::class, 'index']);
