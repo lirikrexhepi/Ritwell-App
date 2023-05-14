@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('homework', function (Blueprint $table) {
+        Schema::create('exercises', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('instruction');
-            $table->string('recipient_email');
-            $table->boolean('completed')->default(false);
+            $table->integer('workout_plan_id');
+            $table->string('exercise_name');
+            $table->text('exercise_description');
+            $table->integer('week');
+            $table->integer('day');
+            $table->integer('sets');
+            $table->integer('reps');
+            $table->integer('rest');
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homework');
+        Schema::dropIfExists('exercises');
     }
 };

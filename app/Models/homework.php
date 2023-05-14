@@ -9,13 +9,13 @@ class homework extends Model
 {
     use HasFactory;
 
-    protected $table='homework';
-            /**
-             * The attributes that are mass assignable.
-             *
-             * @var array
-             */
-            protected $fillable = [
-                'title', 'instruction', 'recipient_email'
-            ];
+    protected $table = 'homework';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'instruction', 'recipient_email', 'completed'
+    ];
 }

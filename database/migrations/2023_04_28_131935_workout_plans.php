@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('homework', function (Blueprint $table) {
+        Schema::create('workout_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('instruction');
-            $table->string('recipient_email');
-            $table->boolean('completed')->default(false);
+            $table->string('name');
+            $table->text('description');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('user_email');
+            $table->string('created_by');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homework');
+        Schema::dropIfExists('workout_plans');
     }
 };

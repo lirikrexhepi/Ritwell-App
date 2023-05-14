@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('height')->default('n/a');
             $table->string('strongPoints')->default('n/a');
             $table->string('weakPoints')->default('n/a');
+            $table->string('pfp', 255)->default('n/a');;
             $table->integer('role')->default('0');
             $table->rememberToken();
             $table->timestamps();

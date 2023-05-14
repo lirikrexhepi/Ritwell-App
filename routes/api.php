@@ -11,6 +11,9 @@ use App\Http\Controllers\API\NutritionController;
 use App\Http\Controllers\API\SpecialEventsController;
 use App\Http\Controllers\API\ClientFolderController;
 use App\Http\Controllers\API\HomeworkFolderController;
+use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\WorkoutPlanController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +96,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/addMetrics/{email}', [MetricController::class, 'update']);
     Route::get('metrics/{email}', [MetricController::class, 'show']);
 
+    //Workout Plans------------------------------------------------------------------------(Working Now)
+    Route::post('/workoutPlan/{email}', [WorkoutPlanController::class, 'storeWorkoutPlan']);
+    Route::post('/addExercises/{workoutPlanId}', [WorkoutPlanController::class, 'storeExercises']);
+    //Show the workout Plans
+    Route::get('/workout-plans', [WorkoutPlanController::class, 'showWorkoutPlans']);
+    Route::get('/workout-plan/{workoutPlanId}/exercises', [WorkoutPlanController::class, 'showExercises']);
+
+
+
 
     //Admin Functions
     Route::post('/addAdmins', [AdminController::class, 'register']);
@@ -112,17 +124,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/updateHomework/{id}', [HomeworkFolderController::class, 'update']);
 
 
-
-
-
-
-
-
-
-
     //Strong and Weak Points
     Route::put('/addProperties/{email}', [ClientFolderController::class, 'clientProperties']);
     Route::get('properties/{email}', [ClientFolderController::class, 'clientPropertiesShow']);
+
+
+    //Display All Images
+    Route::get('/images', [ImageController::class, 'index']);
+    Route::put('/homework/complete/{id}', [HomeworkFolderController::class, 'markCompleted']);
+
+    //Update Profile Picture
+    Route::put('updateProfilePicture/{id}', [UserController::class, 'updateProfilePicture']);
 });
 
 Route::post('register', [RegisterController::class, 'register']);

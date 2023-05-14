@@ -70,10 +70,29 @@ class HomeworkFolderController extends Controller
             return response()->json(['message' => 'Homework not found']);
         }
 
-        if ($homework->recipient_email !== $request->user()->email) {
+
+        if ($homework->recipient_email !== $request->user()->email && $request->user()->role !== 1) {
+            $role = $request->user()->role;
             return response()->json(['message' => 'Unauthorized']);
         }
 
+
         return response()->json(['homework' => $homework]);
+    }
+
+
+
+    public function markCompleted(Request $request, $id)
+    {
+        $homework = Homework::find($id);
+
+        if (!$homework) {
+            return response()->json(['message' => 'Homework not found']);
+        }
+
+        $homework->completed = true;
+        $homework->save();
+
+        return response()->json(['message' => 'Homework marked as completed']);
     }
 }
